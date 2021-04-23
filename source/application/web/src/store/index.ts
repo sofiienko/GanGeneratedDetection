@@ -1,19 +1,12 @@
-import Vue from 'vue';
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-    state:{
-        rowImage:{},
-        processedImage:{},
-    },
-    mutations:{
-        addRowImage(state, image):void{
-            state.rowImage = image;
-        },
-        addProcessedImage(state, image):void{
-            state.processedImage = image;
-        }
-    },
-});
+export default createStore({
+  state: {
+  },
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+  }
+})
