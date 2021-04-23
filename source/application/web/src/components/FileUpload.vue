@@ -29,8 +29,6 @@
         </div>
       </form>
 
-
-
   </div>
 </template>
 
@@ -120,6 +118,11 @@
 <!-- SASS styling -->
 <!-- SASS styling -->
 <style>
+  .container {
+    margin: auto;
+    width: 50%;
+  }
+
   .dropbox {
     outline: 2px dashed grey; /* the dash box */
     outline-offset: -10px;

@@ -7,20 +7,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
-import FileUpload from './components/FileUpload.vue';
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+import FileUpload from './components/FileUpload.vue'
 
-@Component({
+export default {
+  name: 'App',
   components: {
     HelloWorld,
     FileUpload
-  },
-})
-export default class App extends Vue {}
-
-
+  }
+}
 </script>
 
 <style>
