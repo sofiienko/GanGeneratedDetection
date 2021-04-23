@@ -1,0 +1,1 @@
+docker build -t 'densenet_fakereal' .
