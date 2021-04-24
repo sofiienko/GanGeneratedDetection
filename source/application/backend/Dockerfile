@@ -1,9 +1,5 @@
 FROM tensorflow/tensorflow:latest
 
-RUN apt-get update -y
-
-RUN apt-get install -y python-pip python-dev build-essential
-
 COPY requirements.txt /flask-deployment/requirements.txt
 
 WORKDIR /flask-deployment
