@@ -12,7 +12,8 @@ Small research to build deep learning model to enable detected faces that genera
 * Orchestration:  docker-compose
 
 ### UI
-![False negative](/description_images/ui_of_application.png)
+
+![Demostration](/description_images/Animation.gif)
 
 ### Build and run
 
