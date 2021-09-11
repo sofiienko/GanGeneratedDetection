@@ -13,7 +13,7 @@
 
       <h2>Upload images</h2>
       <!--UPLOAD-->
-      <form enctype="multipart/form-data" id="formElem">
+      <form enctype="multipart/form-data" >
         <div class="dropbox">
           <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
             accept="image/*" class="input-file">
@@ -26,28 +26,6 @@
             <p v-if="isFailed" >
               Oppps... {{uploadError}}
             </p>
-        </div>
-        <br>
-        <div class="dropbox">
-          <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
-            accept="image/*" class="input-file">
-            <p v-if="isInitial || isSuccess">
-              Drag your file here to begin<br> or click to browse
-            </p>
-            <p v-if="isSaving">
-              Uploading {{ fileCount }} file...
-            </p>
-            <p v-if="isFailed" >
-              Oppps... {{uploadError}}
-            </p>
-        </div>
-        <br>
-        <input type="submit" value = "Submit">
-      </form>
-      <br><br>
-      <form enctype="multipart/form-data-receive" >
-        <div class="wrapper-img">
-          <img src = "" class = "imagereceive" id = "imagereceive">
         </div>
       </form>
 
@@ -185,17 +163,5 @@
   .error{
     background-color:rgb(158, 110, 110);
   }
-
-  .wrapper-img {
-    outline: 2px dashed grey; /* the dash box */
-    outline-offset: -10px;
-    background: #ccc;
-    color: dimgray;
-    padding: 10px 10px;
-    min-height: 70px; /* minimum height */
-    height: auto;
-    position: relative;
-  }
-
   
 </style>
