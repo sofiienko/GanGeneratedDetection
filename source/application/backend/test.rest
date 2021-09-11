@@ -1,0 +1,16 @@
+GET http://localhost:5000/backend/test/ping
+content-type: application/json
+
+####
+POST http://localhost:5000/backend/test/cache?id=1
+content-type: application/json
+
+{
+    "test":"7464"
+}
+
+####
+GET http://localhost:5000/backend/test/cache?id=1
+content-type: application/json
+
+testContent

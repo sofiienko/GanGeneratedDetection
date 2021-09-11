@@ -1,14 +1,21 @@
-version: "3.5"
+version: '3.5'
 
 services:
-  client:
-    build: client/
-    ports:
-      - '8082:8080'
-    depends_on:
-      - "backend"
+  # client:
+  #   build: client/
+  #   ports:
+  #     - '8082:8080'
+  #   depends_on:
+  #     - 'backend'
 
-  backend:
-    build: backend/
+  # backend:
+  #   build: backend/
+  #   ports:
+  #     - '5000:5000'  
+  #   depends_on:
+  #     - 'cache'
+
+  cache:
+    image: launcher.gcr.io/google/memcached1
     ports:
-      - '5000:5000'  
+      - '11211:11211'

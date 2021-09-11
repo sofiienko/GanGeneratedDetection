@@ -6,3 +6,4 @@ Flask-Cors>=3.0.9
 pillow>=6.2.0
 h5py>=2.8.0
 matplotlib>=2.2.5
+pymemcache>=3.5.0
