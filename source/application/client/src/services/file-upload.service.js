@@ -1,9 +1,9 @@
 import * as axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/predict';
+const BASE_URL = 'http://35.247.71.216:5000/predict';
 
 function upload(formData) {
-    console.log('upload')
+    //console.log(JSON.stringify(formData))
     const url = `${BASE_URL}`;
     return axios.post(url, formData)
         // get data

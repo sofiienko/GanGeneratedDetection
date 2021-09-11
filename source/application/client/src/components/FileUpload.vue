@@ -2,21 +2,18 @@
 <template>
     <div class="container">
 
-        <div id="preview">
-          <img v-if="previewImg" :src="previewImg" width="254" />
-        </div>
-      <div>
-        <p :class="data.probability > 0.5? 'generated':'real'" v-if="isSuccess" >
-           Result probability to be generated via GAN : {{data.probability}}
-        </p>
-      </div>
+      <h3 v-if="!resultImage">Upload source image</h3>
 
-      <h2>Upload images</h2>
+              <div id="preview0">
+          <img v-if="previewImg0" :src="previewImg0" width="254" />
+        </div>
+
       <!--UPLOAD-->
-      <form enctype="multipart/form-data" >
+      <form enctype="multipart/form-data" v-if="!resultImage">
         <div class="dropbox">
-          <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
+          <input type="file"  :name="uploadFieldName" :disabled="isSaving" @change="filesChange(0, $event.target.files); fileCount = $event.target.files.length"
             accept="image/*" class="input-file">
+
             <p v-if="isInitial || isSuccess">
               Drag your file here to begin<br> or click to browse
             </p>
@@ -28,6 +25,33 @@
             </p>
         </div>
       </form>
+
+      <h3 v-if="!resultImage">Upload destination image </h3>
+
+        <div id="preview1">
+          <img v-if="previewImg1" :src="previewImg1" width="254" />
+        </div>
+        <form enctype="multipart/form-data" v-if="!resultImage" >
+          <div class="dropbox">
+          <input type="file"  :name="uploadFieldName" :disabled="isSaving" @change="filesChange(1, $event.target.files); fileCount = $event.target.files.length"
+            accept="image/*" class="input-file">
+
+            <p v-if="isInitial || isSuccess">
+              Drag your file here to begin<br> or click to browse
+            </p>
+            <p v-if="isSaving">
+              Uploading {{ fileCount }} file...
+            </p>
+            <p v-if="isFailed" >
+              Oppps... {{uploadError}}
+            </p>
+          </div>
+      </form>
+
+
+        <div id="resultImage">
+          <img v-if="resultImage" :src="'data:image/jpeg;base64,' + resultImage" width="254" />
+        </div>
 
   </div>
 </template>
@@ -43,7 +67,9 @@
     data() {
       return {
         data: null,
-        previewImg: null,
+        previewImg0: null,
+        previewImg1: null,
+        resultImage: null,
         uploadedFiles: [],
         uploadError: null,
         currentStatus: null,
@@ -67,8 +93,11 @@
     methods: {
       reset() {
         // reset form to initial state
+        this.formData = null,
         this.data = null;
-        this.previewImg = null;
+        this.previewImg0 = null;
+        this.previewImg1 = null;
+        this.resultImage = null,
         this.currentStatus = STATUS_INITIAL;
         this.uploadedFiles = [];
         this.uploadError = null;
@@ -79,33 +108,44 @@
 
         upload(formData)
           .then(x => {
-            this.previewImg = URL.createObjectURL(formData.get('photos'));
-            this.uploadedFiles = [].concat(x);
-            this.currentStatus = STATUS_SUCCESS;
-            this.data = x;
+            // x.status =  x.status.slice(0, 2)
+            // x.status =   x.status.slice(0, -1)
+            this.resultImage = x.status;
+            // this.resultImage = urlCreator.createObjectURL(t)
+            // this.uploadedFiles = [].concat(x);
+            // this.currentStatus = STATUS_SUCCESS;
+            // this.data = x;
           })
           .catch(err => {
-            this.previewImg = URL.createObjectURL(formData.get('photos'));
+            console.log(err)
+            var r  = formData.get(0);
             this.uploadError = err.response === undefined ? err.message : err.response;
             this.currentStatus = STATUS_FAILED;
           });
       },
       //https://stackoverflow.com/questions/49106045/preview-an-image-before-it-is-uploaded-vuejs
       filesChange(fieldName, fileList) {
+
+
+
+          console.log(fieldName)
+          console.log( fileList)
         // handle file changes
-        const formData = new FormData();
 
         if (!fileList.length) return;
-       // this.previewImg = URL.createObjectURL(fileList[0]);
-        // append the files to FormData
-        Array
-          .from(Array(fileList.length).keys())
-          .map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
 
-        // save it
-        this.save(formData);
+        if(this.formData)
+        {
+          this.formData.append(1, fileList[0], fileList[0].name)
+          this.previewImg1 = URL.createObjectURL(this.formData.get(1));
+
+          this.save(this.formData);
+        }
+        else{
+          this.formData = new FormData();
+          this.formData.append(0,fileList[0], fileList[0].name)
+          this.previewImg0 = URL.createObjectURL(this.formData.get(0));
+        }
       }
     },
     mounted() {

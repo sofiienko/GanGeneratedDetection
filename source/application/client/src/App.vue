@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" width="250" >
-    <HelloWorld msg="Face generated detection"/>
+    <HelloWorld msg="+"/>
     <FileUpload/>
 
   </div>
